@@ -1,14 +1,15 @@
-from django.shortcuts import render
-from rest_framework import viewsets
 from .models import *
 from .serializers import *
-from rest_framework.decorators import authentication_classes, permission_classes # type: ignore
-from rest_framework.permissions import IsAuthenticated  # type: ignore
-from rest_framework.authentication import TokenAuthentication, SessionAuthentication # type: ignore
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404 # type: ignore
-from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.decorators import authentication_classes, permission_classes # type: ignore
 from rest_framework.decorators import action
+from rest_framework import viewsets
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication # type: ignore
+from rest_framework.permissions import IsAuthenticated  # type: ignore
+from rest_framework.response import Response
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -41,7 +42,7 @@ class AutorViewSet(viewsets.ModelViewSet):
     @api_view(['GET'])
     @authentication_classes([TokenAuthentication, SessionAuthentication])
     @permission_classes([IsAuthenticated])
-    
+
     def test_token(request):
         return Response("passou para {}".format(request.user.email))
 
