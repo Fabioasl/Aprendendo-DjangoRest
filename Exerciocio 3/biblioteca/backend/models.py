@@ -20,20 +20,11 @@ class Autor(models.Model):
     class Meta:
         verbose_name_plural = "Autores"
         
-class Multa(models.Model):
-    valor = models.FloatField(default=0.0)
-    dt_pagamento = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return f"R${self.valor:.2f}"
-    class Meta:
-        verbose_name_plural = "Multas"
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     dt_registro = models.DateField(auto_now_add=True)
-    multas = models.ManyToManyField(Multa) # Um usuário pode ter muitas multas
     def __str__(self):
         return self.nome
     class Meta:
