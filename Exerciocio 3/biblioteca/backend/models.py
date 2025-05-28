@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class Livro(models.Model):
     titulo = models.CharField(max_length=100) 
@@ -21,9 +22,13 @@ class Autor(models.Model):
         verbose_name_plural = "Autores"
         
 
-class Usuario(models.Model):
+class Usuario(AbstractUser):
     nome = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
+    cpf = models.CharField(max_length=11)
+    data_nascimento = models.DateField()
+    idade = models.IntegerField()
+    endereco = models.CharField(max_length=255)
     dt_registro = models.DateField(auto_now_add=True)
     def __str__(self):
         return self.nome

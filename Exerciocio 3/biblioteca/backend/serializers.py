@@ -14,7 +14,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 class ReservaSerializer(serializers.ModelSerializer):
     class Meta:
         models = Reserva
-        fields = '__all__'
+        fields = ['id', 'username', 'password', 'email']
 
 class EmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
