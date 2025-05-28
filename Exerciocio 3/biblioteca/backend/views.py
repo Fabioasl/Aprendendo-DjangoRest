@@ -1,10 +1,9 @@
 from .models import *
 from .serializers import *
-from django.shortcuts import render
 from django.shortcuts import get_object_or_404 # type: ignore
 from rest_framework.decorators import api_view
 from rest_framework.decorators import authentication_classes, permission_classes # type: ignore
-from rest_framework.decorators import action
+from rest_framework.authtoken.models import Token
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication # type: ignore
@@ -14,9 +13,7 @@ from rest_framework.response import Response
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
-
-class AutorViewSet(viewsets.ModelViewSet):
-
+    
     @api_view(['POST'])
     def login(request):
         user = get_object_or_404(Usuario, username=request.data['username'])
@@ -45,6 +42,10 @@ class AutorViewSet(viewsets.ModelViewSet):
 
     def test_token(request):
         return Response("passou para {}".format(request.user.email))
+
+class AutorViewSet(viewsets.ModelViewSet):
+    queryset = Autor.objects.all()
+    serializer_class = AutorSerializer
 
 class LivroViewSet(viewsets.ModelViewSet):
     queryset = Livro.objects.all()
