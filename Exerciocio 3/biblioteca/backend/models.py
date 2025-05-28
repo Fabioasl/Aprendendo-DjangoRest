@@ -24,6 +24,7 @@ class Autor(models.Model):
 
 class Usuario(AbstractUser):
     nome = models.CharField(max_length=100)
+    senha = models.CharField(max_length=16)
     email = models.EmailField(unique=True)
     cpf = models.CharField(max_length=11)
     data_nascimento = models.DateField()
